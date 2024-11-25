@@ -8,7 +8,7 @@ import time
 cap  = cv2.VideoCapture(0)
 
 mpHands = mp.solutions.hands
-hands = mpHands.Hands() #五个参数， 第一个是否是静态的画面(False)，第二个最多几只手(2), 第三个模型复杂度(1)，越大越精确 ， 第四个严谨度(0.5) ,第五个追踪严谨度(0.5)  
+hands = mpHands.Hands(False , 2, 1, 0.9 ,0.5) #五个参数， 第一个是否是静态的画面(False)，第二个最多几只手(2), 第三个模型复杂度(1)，越大越精确 ， 第四个严谨度(0.5) ,第五个追踪严谨度(0.5)  
 mpDraw = mp.solutions.drawing_utils
 handLmsStyle = mpDraw.DrawingSpec(color = (0,0,255) , thickness = 5)
 handConStyle = mpDraw.DrawingSpec(color = (0,255,0) , thickness = 10)
@@ -44,6 +44,8 @@ while True:
         #print(result.multi_hand_landmarks)# 打印出侦测到手的21个坐标
         imgHeight = img.shape[0]
         imgWidth = img.shape[1]
+        #总的手势值
+        total_gesture = 0
         #将所有手以及手的点和线画出来
         if result.multi_hand_landmarks:
             for handLms in result.multi_hand_landmarks:
@@ -57,9 +59,9 @@ while True:
                     #if i ==4: 
                         #cv2.circle(img , (xPos,yPos),20,(166,56,56),cv2.FILLED)
                     print(i, xPos,yPos)
-                    #判断手势猜数字
-                    gesture = detect_gesture(handLms)
-                    cv2.putText(img , f"gesture:{gesture}",(imgWidth-300,50),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,0),3)
+                #判断手势猜数字
+                total_gesture += detect_gesture(handLms)
+            cv2.putText(img , f"gesture:{total_gesture}",(imgWidth-300,50),cv2.FONT_HERSHEY_COMPLEX,1,(0,255,0),3)
                     
 
         #求fps
@@ -73,6 +75,5 @@ while True:
         break
     if cv2.waitKey(1) == ord('q'):
         break 
-
 
 
