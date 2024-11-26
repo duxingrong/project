@@ -1,5 +1,6 @@
 import cv2
-faceCascade = cv2.CascadeClassifier("face_detect.xml")
+
+faceCascade = cv2.CascadeClassifier(r"C:\Users\19390\Desktop\project\GrandmaCan_python_opencv-main\face_detect.xml")
 
 
 

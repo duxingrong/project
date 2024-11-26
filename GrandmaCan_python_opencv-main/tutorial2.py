@@ -2,10 +2,10 @@ import cv2
 
 #读取影像
 
-cap = cv2.VideoCapture('thumb.mp4')
+#cap = cv2.VideoCapture('thumb.mp4')
 
 #获取摄像机镜头
-#cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0)
 
 
 

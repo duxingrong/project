@@ -4,6 +4,16 @@
 import cv2
 import mediapipe as mp 
 import time 
+import os
+
+if not os.path.exists(r"C:\Users\19390\Desktop\project\GrandmaCan_python_opencv-main\face_detect.xml"):
+    print("Error: face_detect.xml not found!")
+else:
+    print("face_detect.xml loaded successfully.")
+
+faceCascade = cv2.CascadeClassifier(r"C:\Users\19390\Desktop\project\GrandmaCan_python_opencv-main\face_detect.xml")
+
+
 #读取镜头
 cap  = cv2.VideoCapture(0)
 
@@ -39,6 +49,14 @@ def detect_gesture(hand_landmarks):
 while True:
     ret, img = cap.read()
     if ret:
+        #检测人脸 
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        faceRect = faceCascade.detectMultiScale(gray, 1.1 , 5)
+        print(faceRect)#看找到了几个人脸，会返回每个人脸的x,y,w,h      
+        for x,y,w,h in faceRect:
+            cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),2)
+
+        #检测手
         imgRGB = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
         result = hands.process(imgRGB)
         #print(result.multi_hand_landmarks)# 打印出侦测到手的21个坐标
