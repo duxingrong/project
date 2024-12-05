@@ -26,7 +26,7 @@ class MyData(Dataset):
     
 root_dir ="C:\\Users\\Diamond\\Desktop\\project\\pytorchLearning\\dataset\\train"
 ant_label_dir = "ants"
-bees_label_dir = "bees"
+bees_label_dir = "bees" 
 
 #实例化
 ant_dataset = MyData(root_dir , ant_label_dir)
