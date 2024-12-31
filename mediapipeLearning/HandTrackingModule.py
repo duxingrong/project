@@ -137,7 +137,9 @@ class HandDetector():
             cv2.line(img,(x1,y1),(x2,y2),color,max(1,scale//3))
             cv2.circle(img,(cx,cy),scale,color,cv2.FILLED)
         
-        return length , info , img
+            return length , info , img
+        
+        return length,info
             
 
 ## test 
