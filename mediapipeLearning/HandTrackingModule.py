@@ -78,25 +78,39 @@ class HandDetector():
         return allHands,img 
     
     # 判断手的竖起个数，将myHand 作为传入参数
-    def fingersUp(self,myHand):
+    def fingersUp(self,myHand,flipType=True):
         fingers = []  #结果集
         myHandType = myHand['type']
         mylmList  = myHand['lmList']
         # 在检测到手的前提下
         if self.results.multi_hand_landmarks:
-
-            #大拇指
-            if myHandType=="Right":
-                if mylmList[self.tipId[0]][0] > mylmList[self.tipId[0]-1][0]: #4.x>3.x
-                    fingers.append(1)
+            if flipType==True:
+                #大拇指
+                if myHandType=="Right":
+                    if mylmList[self.tipId[0]][0] > mylmList[self.tipId[0]-1][0]: #4.x>3.x
+                        fingers.append(1)
+                    else:
+                        fingers.append(0)
                 else:
-                    fingers.append(0)
+                    if mylmList[self.tipId[0]][0] < mylmList[self.tipId[0]-1][0]: #4.x<3.x
+                        fingers.append(1)
+                    else:
+                        fingers.append(0)
             else:
-                if mylmList[self.tipId[0]][0] < mylmList[self.tipId[0]-1][0]: #4.x<3.x
-                    fingers.append(1)
+                #大拇指
+                if myHandType=="Right":
+                    if mylmList[self.tipId[0]][0] > mylmList[self.tipId[0]-1][0]: #4.x>3.x
+                        fingers.append(0)
+                    else:
+                        fingers.append(1)
                 else:
-                    fingers.append(0)
-            
+                    if mylmList[self.tipId[0]][0] < mylmList[self.tipId[0]-1][0]: #4.x<3.x
+                        fingers.append(0)
+                    else:
+                        fingers.append(1)
+
+
+
             # 其他四根手指
             for id in range(1,5):
                 if mylmList[self.tipId[id]][1] > mylmList[self.tipId[id]-2][1]:
