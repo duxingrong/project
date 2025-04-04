@@ -1,0 +1,18 @@
+setuptools==65.5.0
+wheel<0.40.0 # 4 这两个工具版本也要低，为了支持低版本的gym和sb3
+
+gym==0.21.0 # 1 这个低版本返回4个状态，为了兼容上层的gym-super-mario-bros
+gym-super-mario-bros==7.3.0
+
+tensorboard
+six
+protobuf==3.20.3 # 2 为了解决tensorboard运行问题
+icecream
+imageio
+opencv-python
+nes_py==8.2.1
+numpy==1.24.4
+
+
+shimmy>=2.0
+stable_baselines3==1.6.0 # 3 因为gym版本为了支持gym-super-mario-bros是低版本，gym也支持SB3，SB3版本不能高
